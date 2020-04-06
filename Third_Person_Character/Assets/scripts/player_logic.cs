@@ -14,13 +14,21 @@ public class player_logic : MonoBehaviour
     Vector3 m_horizontalmovement;
     Vector3 m_jumpingheight;
 
+    Animator m_animator;
+
     public float speed = 5.0f;
     public bool isjumping;
+
+    [SerializeField]
+    List<AudioClip> m_audioclips = new List<AudioClip>();
+    AudioSource m_audiosource;
 
     // Start is called before the first frame update
     void Start()
     {
+        m_animator = GetComponent<Animator>();
         m_charactercontroller = GetComponent<CharacterController>();
+        m_audiosource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -32,6 +40,11 @@ public class player_logic : MonoBehaviour
         {
             isjumping = true;
         }
+        if(m_animator)
+        {
+            m_animator.SetFloat("movement_x", m_horizontal);
+            m_animator.SetFloat("movement_y", m_vertical);
+        }
     }
     private void FixedUpdate()
     {
@@ -40,9 +53,9 @@ public class player_logic : MonoBehaviour
             m_jumpingheight.y = m_height;
             isjumping = false;
         }
-
+        transform.forward = Camera.main.transform.forward;
         m_horizontalmovement = transform.right * m_horizontal * speed * Time.deltaTime;
-        m_verticalmovement = transform.forward * m_vertical * speed * Time.deltaTime;
+        m_verticalmovement = Camera.main.transform.forward * m_vertical * speed * Time.deltaTime;
         m_jumpingheight.y -= m_gravity * Time.deltaTime;
 
         
@@ -54,6 +67,15 @@ public class player_logic : MonoBehaviour
         if(m_charactercontroller.isGrounded)
         {
             m_jumpingheight.y = 0;
+        }
+    }
+    public void playfootstepsound(int index)
+    {
+        //left 0 and right 1
+        if (m_audioclips.Count > 0 && m_audiosource)
+        {
+            int random = Random.Range(0, m_audioclips.Count - 1);
+            m_audiosource.PlayOneShot(m_audioclips[random]);
         }
     }
 }
