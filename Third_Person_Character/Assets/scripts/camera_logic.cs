@@ -26,7 +26,7 @@ public class camera_logic : MonoBehaviour
     void Update()
     {
         cameratarget = player.position;
-        cameratarget.y += 1.9f;
+        cameratarget.y += 1.7f;
         m_rotation_y += Input.GetAxis("Mouse X");
         m_rotation_x -= Input.GetAxis("Mouse Y");
 
@@ -54,7 +54,7 @@ public class camera_logic : MonoBehaviour
     }
     private void LateUpdate()
     {
-        Vector3 cameraoffset= new Vector3(0, 0, -2.99f);
+        Vector3 cameraoffset= new Vector3(0, 0, -0.99f);
         Quaternion camerarotation = Quaternion.Euler(m_rotation_x, m_rotation_y, 0);
         transform.position =  cameratarget + camerarotation * cameraoffset;
         /*transform.rotation = camerarotation;*/
