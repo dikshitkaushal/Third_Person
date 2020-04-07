@@ -12,6 +12,8 @@ public class player_logic : MonoBehaviour
     public Camera fpcam;
     [SerializeField] Transform m_rightfoot;
     [SerializeField] Transform m_leftfoot;
+    GameObject m_camera;
+    camera_logic m_cameralogic;
 
     Vector3 m_verticalmovement;
     Vector3 m_horizontalmovement;
@@ -34,6 +36,8 @@ public class player_logic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_camera = Camera.main.gameObject;
+        m_cameralogic = m_camera.GetComponent<camera_logic>();
         m_animator = GetComponent<Animator>();
         m_charactercontroller = GetComponent<CharacterController>();
         m_audiosource = GetComponent<AudioSource>();
@@ -59,12 +63,16 @@ public class player_logic : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if(Mathf.Abs(m_vertical)>0.1f || Mathf.Abs(m_horizontal)>0.1f)
+        {
+            transform.forward= m_cameralogic.forwardvector();
+        }
         if (isjumping)
         {
             m_jumpingheight.y = m_height;
             isjumping = false;
         }
-        transform.forward = Camera.main.transform.forward;
+       /* transform.forward = Camera.main.transform.forward;*/
         m_horizontalmovement = transform.right * m_horizontal * speed * Time.deltaTime;
         m_verticalmovement = Camera.main.transform.forward * m_vertical * speed * Time.deltaTime;
         m_jumpingheight.y -= m_gravity * Time.deltaTime;

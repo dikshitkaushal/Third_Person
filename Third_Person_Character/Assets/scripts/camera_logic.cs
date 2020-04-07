@@ -61,5 +61,10 @@ public class camera_logic : MonoBehaviour
         transform.LookAt(cameratarget);
        
     }
+    public Vector3 forwardvector()
+    {
+        Quaternion rot = Quaternion.Euler(0, m_rotation_y, 0);
+        return rot * Vector3.forward;
+    }
  
 }
