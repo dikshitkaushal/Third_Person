@@ -54,7 +54,7 @@ public class camera_logic : MonoBehaviour
     }
     private void LateUpdate()
     {
-        Vector3 cameraoffset= new Vector3(0, 0, -0.99f);
+        Vector3 cameraoffset= new Vector3(0, 0, -1.49f);
         Quaternion camerarotation = Quaternion.Euler(m_rotation_x, m_rotation_y, 0);
         transform.position =  cameratarget + camerarotation * cameraoffset;
         /*transform.rotation = camerarotation;*/

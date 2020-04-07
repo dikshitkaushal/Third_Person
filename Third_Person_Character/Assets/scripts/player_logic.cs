@@ -10,8 +10,8 @@ public class player_logic : MonoBehaviour
     float m_gravity = 0.98f;
     float m_height = 0.3f;
     public Camera fpcam;
-    [SerializeField] Transform m_rightfoot;
-    [SerializeField] Transform m_leftfoot;
+    [SerializeField] Transform m_rightfoot=null;
+    [SerializeField] Transform m_leftfoot=null;
     GameObject m_camera;
     camera_logic m_cameralogic;
 
