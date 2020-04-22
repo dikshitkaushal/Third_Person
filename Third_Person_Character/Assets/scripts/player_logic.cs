@@ -56,10 +56,11 @@ public class player_logic : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && m_charactercontroller.isGrounded)
         {
             isjumping = true;
-           
+            
            /* m_animator.SetTrigger("jump");*/
         }
-       
+        Debug.Log(m_charactercontroller.isGrounded);
+
     }
     private void FixedUpdate()
     {
